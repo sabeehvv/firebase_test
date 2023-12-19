@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+
 import './App.css';
+import {Firebase} from './testingfire/config'
+import {getFirestore, collection, getDocs} from 'firebase/firestore/lite';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <button onClick={async () => { 
+      const db = getFirestore(Firebase); 
+      const prodtCol = collection(db, 'products'); 
+      const prodtSnapshot = await getDocs(prodtCol); 
+  
+        const prodtList = prodtSnapshot.forEach((obj)=>{ 
+        console.log(obj.data()) 
+      }) 
+      return prodtList; 
+
+    }} >Click me</button> 
+  <h1>Hello Welcome</h1>
     </div>
   );
 }
